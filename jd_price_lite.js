@@ -1,4 +1,4 @@
-/*
+*
 README：https://github.com/yichahucha/surge/tree/master
 ^https?://api\.m\.jd\.com/(client\.action|api)\?functionId=(wareBusiness|serverConfig|basicConfig|lite_wareBusiness|pingou_item)
  */
@@ -399,6 +399,7 @@ function dateFormat(cellval) {
 }
 
 function tool() {
+    const isLoon = typeof $loon != "undefined";
     const isSurge = typeof $httpClient != "undefined";
     const isQuanX = typeof $task != "undefined";
     const node = (() => {
@@ -410,7 +411,7 @@ function tool() {
         }
     })();
     const notify = (title, subtitle, content, open_url) => {
-        if (isSurge) {
+        if (isSurge && !isLoon) {
             let opts = {};
             if (open_url) opts["url"] = open_url;
             if (JSON.stringify(opts) == "{}") {
@@ -422,6 +423,7 @@ function tool() {
         if (isQuanX) {
             let opts = {};
             if (open_url) opts["open-url"] = open_url;
+            opts["media-url"] = "hhttps://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png";
             if (JSON.stringify(opts) == "{}") {
                 $notify(title, subtitle, content);
             } else {
@@ -431,6 +433,7 @@ function tool() {
         if (isLoon) {
             let opts = {};
             if (open_url) opts["openUrl"] = open_url;
+            opts["mediaUrl"] = "https://raw.githubusercontent.com/Orz-3/mini/master/Color/jd.png";
             if (JSON.stringify(opts) == "{}") {
                 $notification.post(title, subtitle, content);
             } else {
